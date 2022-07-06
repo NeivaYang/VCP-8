@@ -118,6 +118,7 @@ Route::group(['middleware' => 'auth', 'middleware' => 'verified', 'middleware' =
             Route::get('/funcoes/editar/{id}', ['as' => 'funcao_editar', 'uses' => 'sistema\FuncaoController@editarFuncao']);
             Route::put('/funcoes/edita', ['as' => 'funcao_edita', 'uses' => 'Sistema\FuncaoController@editaFuncao']);
             Route::delete('/funcoes/remover/{id}', ['as' => 'funcao_remover', 'uses' => 'Sistema\FuncaoController@removerFuncao']);
+            Route::post('/empresa/filter_funcao', ['as' => 'filter', 'uses' => 'Sistema\FuncaoController@searchFuncao']);
             // Route::get('/funcoes', [FuncaoController::class, 'gerenciarFuncao'])->name('funcao.gerenciar');
             // Route::post('/funcoes/cadastra', [FuncaoController::class, 'cadastrarFuncao'])->name('funcao.cadastra');
             // Route::get('/funcoes/editar/{id}', [FuncaoController::class, 'editarFuncao'])->name('funcao.editar');

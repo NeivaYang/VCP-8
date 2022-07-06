@@ -11,7 +11,6 @@ class FuncaoController extends Controller
 {
     public function gerenciarFuncao()
     {
-        // $funcoes = Funcao::select('id', 'nome', 'id_funcao_pai')->get();
         $funcoes = Funcao::select('funcao.id','funcao.nome','fp.nome as funcao_pai')
                            ->leftJoin('funcao as fp', 'fp.id', '=', 'funcao.id_funcao_pai')
                            ->paginate(25);
@@ -20,6 +19,30 @@ class FuncaoController extends Controller
         return view('sistema.funcao.gerenciar', compact('funcoes'));
     }
     
+    
+    public function searchFuncao(Request $request) 
+    {
+        $funcoes = [];
+        
+        if (empty($request['filter'])) {
+            $funcoes = Funcao::select('id', 'nome', 'id_funcao_pai')
+            ->where(function ($query) use ($request){
+                if (!empty($request['filter'])) {
+                    $query->orWhere('nome', 'like', '%'.$request['filter'].'%')
+                        ->orWhere('id_funcao_pai', 'like', '%'.$request['filter'].'%');
+                }
+            })->paginate(10);
+        }else {
+            $funcoes = Funcao::select('id', 'nome', 'id_funcao_pai')->orderBy('created_at')
+            ->where(function ($query) use ($request){
+                if (!empty($request['filter'])) {
+                    $query->orWhere('nome', 'like', '%'.$request['filter'].'%')
+                        ->orWhere('id_funcao_pai', 'like', '%'.$request['filter'].'%');
+                }
+            })->paginate(10);
+        }
+    }
+
     public function cadastroFuncao()
     {
         $funcoes = Funcao::select('funcao.id','funcao.nome','fp.nome as funcao_pai')
@@ -55,7 +78,7 @@ class FuncaoController extends Controller
         Funcao::find($dados['id'])->update($dados);
         Notificacao::gerarAlert("notificacao.sucesso", "notificacao.edicaoSucesso", "success");
         
-        return redirect()->back();
+        return redirect()->route('funcao_gerenciar');
     }
 
     public function removerFuncao($id)
@@ -74,4 +97,5 @@ class FuncaoController extends Controller
         
         return redirect()->back();       
     }
+
 }

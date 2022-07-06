@@ -16,7 +16,7 @@
             {{-- TITULO E SUBTITULO --}}
             <div class="col-6">
                 <h1>@lang('funcao.titulo')</h1>
-                <h4 style="margin-top: -2px">@lang('comum.cadastrar')</h4>
+                <h4 style="margin-top: -2px">@lang('comum.editar')</h4>
             </div>
 
             {{-- BOTOES SALVAR E VOLTAR --}}
@@ -56,9 +56,10 @@
             <form action="{{ route('funcao_edita') }}" method="post" class="mt-3" id="formdados">
                 <div class="tab-content" id="myTabContent">
                     @include('_layouts._includes._alert')
-                    <div class="tab-pane fade show active formcdc" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
+                    <div class="tab-pane fade show active formcdc" id="editar" role="tabpanel" aria-labelledby="cadastro-tab">
                         @csrf
                         <div class="col-md-12">
+                            <input type="hidden" name="id" value="{{ $funcao->id }}">
                             <div>
                                 <div class="form-group col-md-4 telo5ce">
                                     <label for="nome">@lang('funcao.nome')</label>
@@ -87,11 +88,18 @@
 
 @section('script')
 
-{{-- SALVAR E VALIDAR CAMPOS VAZIOS --}}
+    {{-- SALVAR E VALIDAR CAMPOS VAZIOS --}}
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
-    
+
+        {{-- SCRIPT PARA FUNCIONALIDADE DO TOOLTIP --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
+
     <script>
-        
+
+        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
+                
         $(document).ready(function() {
             $('#botaosalvar').on('click', function() {
                 $('#formdados').submit();
@@ -107,7 +115,22 @@
                     nome: "@lang('validate.validate')",
                 },
             });
+            submitHandler: function(form) {
+                    $("#coverScreen").show();
+                    $("#cssPreloader input").each(function() {
+                        $(this).css('opacity', '0.2');
+                    });
+                    $("#cssPreloader select").each(function() {
+                        $(this).css('opacity', '0.2');
+                    });
+                    form.submit();
+                }
         });
+        
+        $(window).on('load', function() {
+            $("#coverScreen").hide();
+        });
+
     </script>
 
 @endsection

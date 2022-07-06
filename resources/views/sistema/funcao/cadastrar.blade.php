@@ -41,7 +41,7 @@
     </div>
 @endsection
 
-@section ('conteudo')
+@section('conteudo')
     <div>
         {{-- NAVTAB'S --}}
         <ul class="nav nav-tabs">
