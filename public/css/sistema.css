@@ -1,0 +1,74 @@
+.table {
+    font-size: 1rem;
+}
+
+html{
+    overflow: auto;
+    font-size: 12;
+}
+
+.form-perfil{
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    background-color: #e2eff773 !important;
+    border: none;
+    border-radius: 0px;
+    color: #162E3C;
+    font-size: 14px;
+    display: block;
+    width: 180%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;   
+}
+.form-perfil::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+}
+  
+
+.form-perfil:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+}
+  
+.form-perfil::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.label-required {
+    color: #FE2712;
+    font-size: 1.125em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.tam{
+    font-size: 1rem;
+}
+
