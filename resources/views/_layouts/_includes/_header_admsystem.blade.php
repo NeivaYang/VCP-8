@@ -37,7 +37,11 @@
                     </a>
 
                     <a href="{{ route('funcao_gerenciar') }}" class="nav-link entrega-tecnica-link sub_grupo">
-                        @lang('sidenav.funcao')
+                        @lang('funcao.titulo')
+                    </a>
+
+                    <a href="{{ route('manage_equipamentos') }}" class="nav-link entrega-tecnica-link sub_grupo">
+                       Equipamentos
                     </a>
 
                     {{-- <a href="{{ route('manager_nozzles') }}" class="nav-link entrega-tecnica-link sub_grupo">

@@ -92,9 +92,10 @@
                                 <label for="pais">@lang('usuarios.pais')</label><br>
                                 <input type="hidden" name="pais" id="pais" />
                                 <select required name="id_country" id="id_country" class="form-control telo5ce">
-                                    <option value="{{ $empresa->id_country }}"></option>
+                                    
                                 @foreach ($countries as $datas)
-                                    <option value="{{ $datas['id_country'] }}">{{ $datas['name'] }}</option>
+                                    <option value="{{ $datas['id_country'] }}" 
+                                      {{ $empresa->id_country == $datas['id_country'] ? 'selected' : '' }} >{{ $datas['name'] }}</option>
                                 @endforeach
                             </select>
                             </div>

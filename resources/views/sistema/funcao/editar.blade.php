@@ -1,9 +1,7 @@
 @extends('_layouts._layout_admsystem')
 @include('_layouts._includes._head_admsystem')
 
-@section('head')
-
-@endsection
+@section('head')@endsection
 
 @section('titulo')
     @lang('usuarios.usuarios')
@@ -69,14 +67,14 @@
                             </div>
                             <div>
                                 <div class="form-group col-md-4 telo5ce">
-                                    <label for="id_funcao_pai">@lang('funcao.funcao_pai')
+                                    <label for="id_funcao_pai">@lang('funcao.funcao_pai')</label>
                                         <select name="id_funcao_pai" id="id_funcao_pai" class="form-control telo5ce">
                                             <option value="">@lang('funcao.nenhumfuncao')</option>
                                         @foreach($funcoes as $funcpai)
-                                            <option value="{{ $funcpai->id }}">{{ $funcpai->nome }}</option>
+                                            <option value="{{ $funcpai->id }}"{{ $funcpai->id == $funcao->id_funcao_pai ? 'selected' : '' }} >{{ $funcpai->nome }}</option>
                                         @endforeach
                                         </select>
-                                    </label>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -86,19 +84,12 @@
         </div>
 @endsection
 
-@section('script')
+@section('scripts')
 
     {{-- SALVAR E VALIDAR CAMPOS VAZIOS --}}
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
 
-        {{-- SCRIPT PARA FUNCIONALIDADE DO TOOLTIP --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
-    </script>
-
     <script>
-
-        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
                 
         $(document).ready(function() {
             $('#botaosalvar').on('click', function() {
@@ -115,16 +106,6 @@
                     nome: "@lang('validate.validate')",
                 },
             });
-            submitHandler: function(form) {
-                    $("#coverScreen").show();
-                    $("#cssPreloader input").each(function() {
-                        $(this).css('opacity', '0.2');
-                    });
-                    $("#cssPreloader select").each(function() {
-                        $(this).css('opacity', '0.2');
-                    });
-                    form.submit();
-                }
         });
         
         $(window).on('load', function() {

@@ -42,6 +42,8 @@ return [
     'noAccess' => 'No Hay Acceso',
     'readOnly' => 'Ver Sólo',
 
+    'cadastro_sucesso' => 'Registrado con éxito',
+
     'cadastrar' => 'Registrar',
     'editar' => 'Editar',
     'gerenciar' => 'Administrar',

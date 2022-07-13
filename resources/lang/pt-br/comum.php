@@ -43,6 +43,8 @@ return [
     'noAccess' => 'Sem Acesso',
     'readOnly' => 'Apenas Visualização',
 
+    'cadastro_sucesso' => 'Cadastro realizado com sucesso',
+
     'cadastrar' => 'Cadastrar',
     'editar' => 'Editar',
     'gerenciar' => 'Gerenciar',

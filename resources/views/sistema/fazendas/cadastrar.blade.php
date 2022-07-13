@@ -60,6 +60,7 @@
                 <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
                     @csrf
                     <div class="col-md-12" id="cssPreloader">
+                        <input type="hidden" name="id" value="{{ $fazendas->id }}">
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-4 telo5ce">
                                 <label for="nome">@lang('fazendas.nome')</label>

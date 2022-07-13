@@ -85,6 +85,7 @@ Route::group(['middleware' => 'auth', 'middleware' => 'verified', 'middleware' =
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////// ROTAS DE REVENDAS ////////////////////////////////////////////////
         /////////////////////////////////////// RESALES ROUTES ///////////////////////////////////////////////////
+
             Route::get('/resales', ['as' => 'manager_resales', 'uses' => 'Sistema\RevendasController@managerResales']);
             Route::get('/resales/create_resales', ['as' => 'create_resales', 'uses' => 'Sistema\RevendasController@createResales']);
             Route::post('/resales/save_resales', ['as' => 'save_resales', 'uses' => 'Sistema\RevendasController@saveResales']);
@@ -106,24 +107,31 @@ Route::group(['middleware' => 'auth', 'middleware' => 'verified', 'middleware' =
             Route::delete('/empresa/delete_empresa/{id}', ['as' => 'delete_empresa', 'uses' => 'Sistema\EmpresaController@delete']);
             Route::post('/empresa/filter_empresa', ['as' => 'filter_empresa', 'uses' => 'Sistema\EmpresaController@searchEmpresa']);
             Route::post('/empresa/checkemail', ['as'=> 'checkEmail', 'uses' => 'Sistema\EmailController@checkEmail']);
-            //Route::post('/email/create_empresa', [EmailController::class, 'checkEmail'])->name('checkEmail');
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////// ROTAS GERENCIAMENTO DE FUNCOES //////////////////////////////
-        ///////////////////////////////////////////// FUNCTIONS MANGEMENT ROUTES //////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////// ROTAS GERENCIAMENTO DE FUNCOES ///////////////////////////////////
+        //////////////////////////////////////// FUNCTIONS MANGEMENT ROUTES //////////////////////////////////////
 
             Route::get('/funcoes', ['as' => 'funcao_gerenciar', 'uses' => 'Sistema\FuncaoController@gerenciarFuncao']);
             Route::post('/funcoes/cadastra', ['as' => 'funcao_cadastra', 'uses' => 'Sistema\FuncaoController@cadastrarFuncao']);
             Route::get('/funcoes/cadastros', ['as' => 'funcao_cadastro', 'uses' => 'Sistema\FuncaoController@cadastroFuncao']);
             Route::get('/funcoes/editar/{id}', ['as' => 'funcao_editar', 'uses' => 'sistema\FuncaoController@editarFuncao']);
-            Route::put('/funcoes/edita', ['as' => 'funcao_edita', 'uses' => 'Sistema\FuncaoController@editaFuncao']);
+            Route::post('/funcoes/edita', ['as' => 'funcao_edita', 'uses' => 'Sistema\FuncaoController@editaFuncao']);
             Route::delete('/funcoes/remover/{id}', ['as' => 'funcao_remover', 'uses' => 'Sistema\FuncaoController@removerFuncao']);
-            Route::post('/empresa/filter_funcao', ['as' => 'filter', 'uses' => 'Sistema\FuncaoController@searchFuncao']);
-            // Route::get('/funcoes', [FuncaoController::class, 'gerenciarFuncao'])->name('funcao.gerenciar');
-            // Route::post('/funcoes/cadastra', [FuncaoController::class, 'cadastrarFuncao'])->name('funcao.cadastra');
-            // Route::get('/funcoes/editar/{id}', [FuncaoController::class, 'editarFuncao'])->name('funcao.editar');
-            // Route::put('/funcoes/edita', [FuncaoController::class, 'editaFuncao'])->name('funcao.edita');
-            // Route::delete('/funcoes/remover/{id}', [FuncaoController::class, 'removerFuncao'])->name('funcao.remover');
+            Route::post('/empresa/filter_funcao', ['as' => 'filter_funcao', 'uses' => 'Sistema\FuncaoController@searchFuncao']);
+        
+        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////// ROTAS DE CADASTRO DE EQUIPAMENTOS ///////////////////////////
+        ///////////////////////////////////////////// EQUIPAMENTS REGISTER ROUTES /////////////////////////////////
+
+            Route::get('/equipamento', ['as' => 'manage_equipamentos', 'uses' => 'Sistema\EquipamentosController@manageEquipamentos']);
+            Route::get('/equipamento/create_equipamentos', ['as' => 'create_equipamentos', 'uses' => 'Sistema\EquipamentosController@createEquipamentos']);
+            Route::post('/equipamento/save_equipamentos', ['as' => 'save_equipamentos', 'uses' => 'Sistema\EquipamentosController@saveEquipamentos']);
+            Route::get('/equipamento/edit_equipamentos/{id}', ['as' => 'edit_equipamentos', 'uses' => 'Sistema\EquipamentosController@editEquipamentos']);
+            Route::post('/equipamento/update_equipamentos', ['as' => 'update_equipamentos', 'uses' => 'Sistema\EquipamentosController@updateEquipamentos']);
+            Route::delete('/equipamento/delete_equipamentos{id}', ['as' => 'delete_equipamentos', 'uses' => 'Sistema\EquipamentosController@deleteEquipamentos']);
+    
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////// ROTA DE ENTREGA TÉCNICA ////////////////////////////////////////////

@@ -41,6 +41,8 @@ return [
    'noAccess' => 'No Access',
    'readOnly' => 'Read Only',
 
+   'cadastro_sucesso' => 'Successfully registered',
+
    'cadastrar' => 'Create',
    'editar' => 'Edit',
    'gerenciar' => 'Manager',

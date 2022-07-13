@@ -20,6 +20,12 @@ class Fazenda extends Model
 
     protected $dates =  ['deleted_at'];
 
+    public function getFazendaEquipamentos()
+    {
+        $fazequips = Fazenda::select('fazendas.nome','fazendas.id')->orderBy('fazendas.nome');
+
+        return $fazeequips;
+    }
 
     public static function getFazendasUsuario($nopage = 0){
         //Tipo de usuario

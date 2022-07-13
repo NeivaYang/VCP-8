@@ -78,7 +78,7 @@ class FuncaoController extends Controller
         Funcao::find($dados['id'])->update($dados);
         Notificacao::gerarAlert("notificacao.sucesso", "notificacao.edicaoSucesso", "success");
         
-        return redirect()->route('funcao_gerenciar');
+        return redirect()->back();
     }
 
     public function removerFuncao($id)
