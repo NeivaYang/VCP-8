@@ -69,23 +69,46 @@
         {{-- FORMULARIO DE CADASTRO --}}
         <form action="{{ route('usuario_save') }}" method="POST" class="mt-3" id="formdados" autocomplete="off">
             <div class=" tab-content  small.required tab-validate" id="myTabContent">
-                    @include('_layouts._includes._alert')
+                @include('_layouts._includes._alert')
                 <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
                     @csrf
-                    <div class="col-12" id="cssPreloader">
-
+                    <div class="col-6">
                         <div class="form-row justify-content-center">
-                            <div class="form-group col-md-3 telo5ce">
+                            <div class="form-group col-md-6 telo5ce">
                                 <label for="nome">@lang('usuarios.nome')</label>
                                 <input type="text" class="form-control telo5ce" id="nome" name="nome" maxlength="50">
                             </div>
-                            <div class="form-group col-md-3 telo5ce">
+                            <div class="form-group col-md-6 telo5ce">
                                 <label for="tipo_usuario">@lang('usuarios.tipo_usuario')</label><br>
                                 <select onchange="trocarDivAtivaSuperior()" name="tipo_usuario" id="tipo_usuario" required class="form-control telo5ce">
                                         <option value=""></option>
                                     @foreach ($papeis as $datas)
                                         <option value="{{ $datas['chave'] }}">@lang($datas['valor'])</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" id="cssPreloader">
+                        <div class="form-row justify-content">
+                            <div class="form-group col-md-3 telo5ce" id="divEmpresa">
+                                <label for="id_empresa">@lang('empresa.corporation')</label>
+                                <input  type="hidden"  id="id_empresa" name="id_empresa" />
+                                <select name="id_empresa" id="id_empresa" class="form-control telo5ce">
+                                    <option value=""></option>
+                                @foreach ($empresas as $emp)
+                                    <option value="{{ $emp['id'] }}">{{ $emp['nome'] }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 telo5ce" id="divFuncao">
+                                <label for="id_funcao">@lang('funcao.titulo')</label>
+                                <input id="id_funcao" name="id_funcao" type="hidden" />
+                                <select name="id_funcao" id="id_funcao" class="form-control telo5ce">
+                                    <option value=""></option>
+                                @foreach ($funcoes as $func)
+                                    <option value="{{ $func['id'] }}">{{ $func['nome'] }}</option>
+                                @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-3 telo5ce">
@@ -103,7 +126,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-3 telo5ce">
                                 <label for="cep">@lang('usuarios.cep')</label>
@@ -122,7 +144,6 @@
                                 <input type="text" class="form-control" id="estado" name="estado" maxlength="60">
                             </div>
                         </div>
-
                         <div class="form-row justify-content-center">
                             <div class="form-group col-md-3 telo5ce">
                                 <label for="email">@lang('usuarios.email')</label>
@@ -148,7 +169,6 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-row justify-content-start">
                             <div class="form-group col-md-3 telo5ce">
                                 <div id='divSupervisor' style="display: none;">
@@ -393,13 +413,23 @@
 
         function trocarDivAtivaSuperior() {
             var papel = $('#tipo_usuario').val();
-            togleDivCentroCustos(papel);
+            // togleDivCentroCustos(papel);
             var divAssist = $('#divAssistente');
             var divConsult = $('#divConsultor');
+            var divEmpresa = $('#divEmpresa');
+            var divFuncao = $('#divFuncao');
             var divSup = $('#divSupervisor');
             var fieldAssist = $("#superior_a");
             var fieldConsult = $("#superior_c");
             var fieldSup = $("#superior_s");
+            if (papel != 0) {
+                divFuncao.show();
+                divEmpresa.show();
+            }
+            else {
+                divFuncao.hide();
+                divEmpresa.hide();
+            }
             if (papel == 2) {
                 divAssist.hide();
                 divConsult.hide();

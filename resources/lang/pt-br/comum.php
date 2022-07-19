@@ -21,6 +21,7 @@ return [
     'erro_carregar_fazendas' => 'Houve um problema ao carregar as fazendas',
     'selecionar_fazenda' => 'Selecionar Fazenda',
 
+    'equipamentos' =>'Equipamentos',
     '#' => '#',
     'sim' => 'Sim',
     'nao' => 'Não',
@@ -42,6 +43,8 @@ return [
     'fullAccess' => 'Acesso Total',
     'noAccess' => 'Sem Acesso',
     'readOnly' => 'Apenas Visualização',
+    'fabricante' => 'Fabricante',
+    'tipo' => 'Tipo',
 
     'cadastro_sucesso' => 'Cadastro realizado com sucesso',
 

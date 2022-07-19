@@ -70,10 +70,10 @@
                 @include('_layouts._includes._alert')
                 <div class="tab-pane fade show active" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
                     @csrf
-                    <div class="col-md-12 position" id="cssPreloader">
+                    <div class="col-6">
                         <input type="hidden" name="id" value="{{ $usuarios->id }}">
                         <div class="form-row justify-content-start">
-                            <div class="form-group col-md-3 telo5ce">
+                            <div class="form-group col-md-6 telo5ce">
                                 <label for="nome">@lang('usuarios.nome')</label>
                                 <input type="text" class="form-control telo5ce" id="nome" name="nome" maxlength="50"
                                     value="{{ $usuarios->nome }}">
@@ -99,7 +99,7 @@
                                 }
                             @endphp
 
-                            <div class="form-group col-md-3 position telo5ce">
+                            <div class="form-group col-md-6 position telo5ce">
                                 <label for="tipo_usuario">@lang('usuarios.tipo_usuario')</label><br>
                                 <select name="tipo_usuario" id="tipo_usuario" class="form-control position telo5ce"
                                     onchange="etrocarDivAtivaSuperior()">
@@ -108,6 +108,30 @@
                                     <option value="2" {{ $usuarios->tipo_usuario == '2' ? 'selected' : '' }}>@lang("usuarios.supervisor")</option>
                                     <option value="3" {{ $usuarios->tipo_usuario == '3' ? 'selected' : '' }}>@lang("usuarios.consultor")</option>
                                     <option value="4" {{ $usuarios->tipo_usuario == '4' ? 'selected' : '' }}>@lang("usuarios.assistente")</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 position" id="cssPreloader">
+                        <div class="form-row justify-content-start">
+                            <div class="form-group col-md-3 telo5ce" id="divEmpresa">
+                                <label for="id_empresa">@lang('empresa.corporation')</label>
+                                <input  type="hidden"  id="id_empresa" name="id_empresa" />
+                                <select name="id_empresa" id="id_empresa" class="form-control telo5ce">
+                                    <option value="0"></option>
+                                @foreach ($empresas as $emp)
+                                    <option value="{{ $emp['id'] }}" {{ $emp['id'] == $usuarios['id_empresa'] ? 'selected' : ''}}>{{ $emp->nome }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3 telo5ce" id="divFuncao">
+                                <label for="id_funcao">@lang('funcao.titulo')</label>
+                                <input id="id_funcao" name="id_funcao" type="hidden" />
+                                <select name="id_funcao" id="id_funcao" class="form-control telo5ce">
+                                    <option value="0"></option>
+                                @foreach ($funcoes as $func)
+                                    <option value="{{ $func['id'] }}" {{ $func['id'] == $usuarios ['id_funcao'] ? 'selected' : ''}}>{{ $func->nome }}</option>
+                                @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-3 telo5ce">
@@ -125,8 +149,7 @@
                                 @endforeach
                                 </select>
                             </div>
-                            </div>
-
+                        </div>
                         <div class="form-row justify-content-start">
                             
                             <div class="form-group col-md-3 telo5ce">
@@ -509,6 +532,8 @@
             var divAssist = $('#edivAssistente');
             var divConsult = $('#edivConsultor');
             var divSup = $('#edivSupervisor');
+            var divEmpresa = $('#divEmpresa');
+            var divFuncao = $('#divFuncao');
             var fieldAssist = $("#esuperior_a");
             var fieldConsult = $("#esuperior_c");
             var fieldSup = $("#esuperior_s");
@@ -540,6 +565,14 @@
                 fieldSup.removeAttr('required');
                 fieldConsult.removeAttr('required');
                 fieldAssist.removeAttr('required');
+            }
+            if (papel != 0) {
+                divFuncao.show();
+                divEmpresa.show();
+            }
+            else {
+                divFuncao.hide();
+                divEmpresa.hide();
             }
         }
 

@@ -45,6 +45,8 @@
             <thead class="headertable">
                 <tr class="text-center">
                     <th style="width: 15%">@lang('usuarios.nome')</th>
+                    <th style="width: 10%">@lang('empresa.corporation')</th>
+                    <th style="width: 10%">@lang('funcao.titulo')</th>
                     <th style="width: 10%">@lang('usuarios.telefone')</th>
                     <th style="width: 10%">@lang('usuarios.pais')</th>
                     <th style="width: 10%">@lang('usuarios.tipo_usuario')</th>
@@ -57,6 +59,8 @@
                 @foreach ($listaUsuarios as $usuarios)
                     <tr>
                         <td>{{ $usuarios->nome }}</td>
+                        <td>{{ $usuarios->nome_empresa }}</td>
+                        <td>{{ $usuarios->nome_funcao }}</td>
                         <td>{{ $usuarios->telefone }}</td>
                         <td>{{ $usuarios->pais }}</td>
                         <td>{{ $usuarios->tipo_usuario }}</td>
@@ -132,6 +136,8 @@
                 @endforeach
             </tbody>
             <tfoot>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

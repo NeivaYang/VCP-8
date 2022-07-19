@@ -30,7 +30,6 @@ class Funcao extends Model
     {
         $filhos = array();
         $ultimos = array();
-        //dd($cdc);
         do {
             $id = (count($ultimos) == 0) ? $id : implode(",",$ultimos); 
             $idFilhos = DB::table('funcao')->select('id')->whereRaw("find_in_set( id_funcao_pai, '".$id."') > 0")->get();
@@ -40,7 +39,6 @@ class Funcao extends Model
                 $ultimos[] = $item->id;
             }            
         } while (count($ultimos) > 0);
-        //dd(var_dump($filhos));
         return ((count($filhos) > 0) ? implode(',',$filhos) : 0);
     }
     

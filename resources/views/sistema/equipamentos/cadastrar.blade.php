@@ -89,7 +89,7 @@
                                     <select name="altura" id="altura" class="form-control telo5ce">
                                         <option value="">@lang(' ')</option>
                                         @for ($i = 0; $i < count($altura_equipamento); $i++)                                    
-                                            <option value="{{ $altura_equipamento[$i]['altura_equipamento']}}">{{ $altura_equipamento[$i]['altura_equipamento']}}</option>                                    
+                                            <option value="{{ $altura_equipamento[$i]['altura_equipamento']}}">{{ __('listas.'. $altura_equipamento[$i]['altura_equipamento'] )}}</option>                                   
                                         @endfor
                                     </select>
                                 </div>
@@ -107,7 +107,7 @@
                                     <select name="fabricante" id="fabricante" class="form-control telo5ce">
                                         <option value="">@lang(' ')</option>
                                         @for ($i = 0; $i < count($fabricante); $i++)                                    
-                                            <option value="{{ $fabricante[$i]['fornecedor']}}">{{ $fabricante[$i]['fornecedor']}}</option>                                    
+                                            <option value="{{ $fabricante[$i]['fornecedor']}}">{{ __('listas.'. $fabricante[$i]['fornecedor'] )}}</option>                                    
                                         @endfor
                                     </select>
                                 </div>
@@ -118,7 +118,7 @@
                                     <select name="tipo_equipamento" id="tipo_equipamento" class="form-control telo5ce">
                                         <option value="">@lang(' ')</option>
                                         @for ($i = 0; $i < count($tipo_equipamento); $i++)                                    
-                                            <option value="{{ $tipo_equipamento[$i]['tipo_equipamento']}}">{{ $tipo_equipamento[$i]['tipo_equipamento']}}</option>                                    
+                                            <option value="{{ $tipo_equipamento[$i]['tipo_equipamento']}}">{{ __('listas.'. $tipo_equipamento[$i]['tipo_equipamento'] )}}</option>                                    
                                         @endfor
                                     </select>
                                 </div>
@@ -127,7 +127,7 @@
                                     <select name="noserie_painel" id="noserie_painel" class="form-control telo5ce">
                                         <option value="">@lang(' ')</option>
                                         @for ($i = 0; $i < count($noserie_painel); $i++)                                    
-                                            <option value="{{ $noserie_painel[$i]['painel']}}">{{ $noserie_painel[$i]['painel']}}</option>                                    
+                                            <option value="{{ $noserie_painel[$i]['painel']}}">{{ __('listas.'. $noserie_painel[$i]['painel'] )}}</option>                                    
                                         @endfor
                                     </select>
                                 </div>

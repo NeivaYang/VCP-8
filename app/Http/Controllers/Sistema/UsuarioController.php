@@ -20,12 +20,15 @@ use App\Classes\Sistema\ModulePermissions;
 use App\Classes\Sistema\Country;
 use App\Classes\Sistema\CountryLanguage;
 use App\Classes\Sistema\ModuleLanguage;
+use App\Classes\Sistema\Empresa;
+use App\Classes\Sistema\Funcao;
 
 class UsuarioController extends Controller
 {
 
     public function managerUsuarios(Request $req)
     {
+        $func_emp = user::select('id_empresa', 'id_funcao');
         $filtro = $req->all();
         $usar_filtro = False;
         if (isset($filtro['filtro'])) {
@@ -40,69 +43,85 @@ class UsuarioController extends Controller
             unset( $papeis[0]);
             unset( $papeis[1]);
             if($usar_filtro) {
-                $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')
-                ->where('tipo_usuario', '!=', 0)->where('tipo_usuario', '!=', 1)->orderBy('created_at')
-                ->where(function ($query) use ($filtro) {
-                    //Busca pelo nome
-                    if(!empty($filtro['nome'])){
-                        $query->where('nome', 'like', '%'.$filtro['nome'].'%');
-                    }
-                    //Busca pelo tipo de usuário
-                    if(!empty($filtro['tipo_usuario'])){
-                        $query->where('tipo_usuario', ($filtro['tipo_usuario'] - 100));
-                    }
-                    //Busca apenas ativos
-                    if(!empty($filtro['ativo']) && empty($filtro['inativo'])){
-                        $query->where('situacao', 1);
-                    }
-                    //Busca apenas inativos
-                    if(empty($filtro['ativo']) && !empty($filtro['inativo'])){
-                        $query->where('situacao',  0);
-                    }
-                })
-                ->paginate(10);
+                // Trazer os dados para da tabela User $listaUsuarios associando o nome da empresa e da função aos campos id_empresa e id_função na tabela
+                $listaUsuarios = User::select('users.id', 'users.nome', 'users.telefone', 'users.pais', 'users.tipo_usuario', 'users.email', 'users.situacao',
+                                            'users.id_empresa', 'users.id_funcao', 'empresa.nome as nome_empresa', 'funcao.nome as nome_funcao')
+                                        ->leftjoin('empresa', 'empresa.id', 'users.id_empresa')
+                                        ->leftjoin('funcao', 'funcao.id', 'users.id_funcao')
+                                        ->where(function ($query) use ($filtro) {
+                                            //Busca pelo nome
+                                            if(!empty($filtro['users.nome'])){
+                                                $query->where('users.nome', 'like', '%'.$filtro['users.nome'].'%');
+                                            }
+                                            //Busca pelo tipo de usuário
+                                            if(!empty($filtro['users.tipo_usuario'])){
+                                                $query->where('users.tipo_usuario', ($filtro['users.tipo_usuario'] - 100));
+                                            }
+                                            //Busca apenas ativos
+                                            if(!empty($filtro['users.ativo']) && empty($filtro['users.inativo'])){
+                                                $query->where('situacao', 1);
+                                            }
+                                            //Busca apenas inativos
+                                            if(empty($filtro['users.ativo']) && !empty($filtro['users.inativo'])){
+                                                $query->where('users.situacao',  0);
+                                            }
+                                        })
+                                        ->paginate(10);
 
             } else {
-                $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')
-                ->where('tipo_usuario', '!=', 0)->where('tipo_usuario', '!=', 1)->orderBy('created_at')->paginate(10);
+                // Trazer os dados para da tabela User $listaUsuarios associando o nome da empresa e da função aos campos id_empresa e id_função na tabela
+                $listaUsuarios = User::select('users.id','users.nome', 'users.telefone', 'users.pais', 'users.tipo_usuario', 'users.email', 'users.situacao', 'users.id_empresa', 'users.id_funcao',
+                                            'empresa.nome as nome_empresa', 'funcao.nome as nome_funcao')
+                                        ->leftjoin('empresa', 'empresa.id', 'users.id_empresa')
+                                        ->leftjoin('funcao', 'funcao.id', 'users.id_funcao')
+                                        ->where('users.tipo_usuario', '!=', 0)->where('users.tipo_usuario', '!=', 1)->orderBy('users.created_at')->paginate(10);
             }
         } else {
             if ($usar_filtro) {
-                $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')->orderBy('created_at')
-                ->where(function ($query) use ($filtro) {
-                    //Busca pelo nome
-                    if (!empty($filtro['nome'])) {
-                        $query->where('nome', 'like', '%'.$filtro['nome'].'%');
-                    }
-                    //Busca pelo tipo de usuário
-                    if (!empty($filtro['tipo_usuario'])) {
-                        $query->where('tipo_usuario', ($filtro['tipo_usuario'] - 100));
-                    }
-                    //Busca apenas ativos
-                    if (!empty($filtro['ativo']) && empty($filtro['inativo'])) {
-                        $query->where('situacao', 1);
-                    }
-                    //Busca apenas inativos
-                    if (empty($filtro['ativo']) && !empty($filtro['inativo'])) {
-                        $query->where('situacao',  0);
-                    }
-                })
-                ->paginate(10);
+                // Trazer os dados para da tabela User $listaUsuarios associando o nome da empresa e da função aos campos id_empresa e id_função na tabela
+                $listaUsuarios = User::select('users.id','users.nome', 'users.telefone', 'users.pais', 'users.tipo_usuario', 'users.email', 'users.situacao', 'users.id_empresa', 'users.id_funcao',
+                                            'empresa.nome as nome_empresa', 'funcao.nome as nome_funcao')   
+                                            ->leftjoin('empresa', 'empresa.id', 'users.id_empresa')
+                                            ->leftjoin('funcao', 'funcao.id', 'users.id_funcao')
+                                            ->orderBy('users.created_at')
+                                            ->where(function ($query) use ($filtro) {
+                                                //Busca pelo nome
+                                                if (!empty($filtro['users.nome'])) {
+                                                    $query->where('users.nome', 'like', '%'.$filtro['users.nome'].'%');
+                                                }
+                                                //Busca pelo tipo de usuário
+                                                if (!empty($filtro['users.tipo_usuario'])) {
+                                                    $query->where('users.tipo_usuario', ($filtro['users.tipo_usuario'] - 100));
+                                                }
+                                                //Busca apenas ativos
+                                                if (!empty($filtro['users.ativo']) && empty($filtro['users.inativo'])) {
+                                                    $query->where('users.situacao', 1);
+                                                }
+                                                //Busca apenas inativos
+                                                if (empty($filtro['users.ativo']) && !empty($filtro['users.inativo'])) {
+                                                    $query->where('users.situacao',  0);
+                                                }
+                                            })
+                                            ->paginate(10);
             } else {
-                $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')
-                ->orderBy('created_at')->paginate(10);
+                // Trazer os dados para da tabela User $listaUsuarios associando o nome da empresa e da função aos campos id_empresa e id_função na tabela
+                $listaUsuarios = User::select('users.id','users.nome', 'users.telefone', 'users.pais', 'users.tipo_usuario', 'users.email', 'users.situacao', 'users.id_empresa', 'users.id_funcao',
+                                            'empresa.nome as nome_empresa', 'funcao.nome as nome_funcao')
+                                        ->leftjoin('empresa', 'empresa.id', 'users.id_empresa')
+                                        ->leftjoin('funcao', 'funcao.id', 'users.id_funcao')
+                                        ->orderBy('users.created_at')->paginate(10);
             }
         }
-        
+        //dd($listaUsuarios);
         $cdcs = CentroDeCusto::all();
         foreach($cdcs as $cdc) {
             $cdc['nome'] =( $cdc['codigo'] . " - " . $cdc['nome']);
         }
         
         // Usuários para o field de superior no cadastro/edição de usuários
-        $usuarios_superiores = User::select('nome', 'id', 'tipo_usuario')
-            ->where('situacao', '1')->where('tipo_usuario', '!=', '0')->where('tipo_usuario', '!=', '4')
-            ->orderBy('nome', 'asc')->get();
+        $usuarios_superiores = User::select('users.nome', 'users.id', 'users.tipo_usuario', 'users.id_empresa', 'users.id_funcao')
+            ->where('situacao', '1')->where('users.tipo_usuario', '!=', '0')->where('users.tipo_usuario', '!=', '4')
+            ->orderBy('users.nome', 'asc')->get();
 
         //Alterando as chaves de idioma e papel para strings
         foreach($listaUsuarios as $user) {
@@ -125,7 +144,7 @@ class UsuarioController extends Controller
         $listaPapeis = User::getListaDePapeis();
 
         if (Auth::User()->tipo_usuario != 0) {
-            $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')
+            $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao', 'id_empresa', 'id_funcao')
             ->where('tipo_usuario', '!=', 0)->where('tipo_usuario', '!=', 1)->orderBy('created_at')
             ->where(function ($query) use ($request) {
                 if (!empty($request['filter'])) {
@@ -136,7 +155,7 @@ class UsuarioController extends Controller
             })->paginate(10);
         } else {
             // dd($request['filter']);
-            $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao')->orderBy('created_at')
+            $listaUsuarios = User::select('id','nome', 'telefone', 'pais', 'tipo_usuario', 'email', 'situacao', 'id_empresa', 'id_funcao')->orderBy('created_at')
             ->where(function ($query) use ($request) {
                 if (!empty($request['filter'])) {
                     $query->orWhere('nome', 'like', '%'.$request['filter'].'%')
@@ -173,6 +192,11 @@ class UsuarioController extends Controller
 
     public function createUsuario()
     {
+        $funcoes = Funcao::select('id','nome')->orderby('nome')->get();
+        
+        $empresas = Empresa::select('id','nome')->orderby('nome')->get();
+
+        //dd($funcoes, $empresas);
         //Obtendo a lista de papéis do sistema
         $papeis = User::getListaDePapeis();
         $idiomas = User::getListaDeIdiomas();
@@ -218,7 +242,7 @@ class UsuarioController extends Controller
             }
         }
 
-        return view('sistema.usuarios.cadastrar', compact('papeis', 'idiomas', 'cdcs', 'countries', 'usuarios_superiores', 'modules', 'typeUsers', 'rolesList', 'modulesLang'));
+        return view('sistema.usuarios.cadastrar', compact('funcoes', 'empresas', 'papeis', 'idiomas', 'cdcs', 'countries', 'usuarios_superiores', 'modules', 'typeUsers', 'rolesList', 'modulesLang'));
     }
 
     public function saveUsuario(Request $req)
@@ -271,6 +295,10 @@ class UsuarioController extends Controller
 
     public function editUsuarios($id)
     {
+        $funcoes = Funcao::select('id','nome')->orderby('nome')->get();
+        
+        $empresas = Empresa::select('id','nome')->orderby('nome')->get();
+        
         //Obtendo a lista de papéis do sistema
         $usuarios = user::find($id);
         $papeis = User::getListaDePapeis();
@@ -315,7 +343,7 @@ class UsuarioController extends Controller
                 $user->situacao = __('usuarios.ativo');
             }
         }
-        return view('sistema.usuarios.editar', compact('usuarios', 'papeis', 'idiomas', 'cdcs', 'usuarios_superiores', 'countries', 'modules', 'userPermissions', 'modulesLang', 'typeUsers', 'rolesList'));
+        return view('sistema.usuarios.editar', compact('funcoes', 'empresas', 'usuarios', 'papeis', 'idiomas', 'cdcs', 'usuarios_superiores', 'countries', 'modules', 'userPermissions', 'modulesLang', 'typeUsers', 'rolesList'));
     }
 
     public function updateUsuarios(Request $req)

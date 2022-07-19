@@ -13,6 +13,7 @@ use App\Classes\Sistema\CountryLanguage;
 
 class EmpresaController extends Controller
 {
+    // To Manage
     public function managerEmpresa()
     {
         $manager_empresa = Empresa::select('id', 'nome', 'telefone', 'email', 'tipo', 'id_country as pais', 'cidade', 'estado') 
@@ -47,6 +48,7 @@ class EmpresaController extends Controller
         return view('sistema.empresa.gerenciar', compact('manager_empresa'));
     }
     
+    // To Search
     public function searchEmpresa(Request $request) 
     {
         $empresa = [];
@@ -72,6 +74,7 @@ class EmpresaController extends Controller
         }
     }
 
+    //To Create
     public function createEmpresa()
     {
         $userLang = Auth::user()->preferencia_idioma;
@@ -89,6 +92,7 @@ class EmpresaController extends Controller
     
     }
 
+    // To Save
     public function saveEmpresa(Request $req)
     {
         $dados = $req->all();
@@ -98,6 +102,7 @@ class EmpresaController extends Controller
         return redirect()->route('manager_empresa');
     }
 
+    // To Edit
     public function editEmpresa($id)
     {
         $empresa = Empresa::find($id);
@@ -118,6 +123,7 @@ class EmpresaController extends Controller
         
     }
 
+    // To Update
     public function updateEmpresa(Request $req)
     {
         $dados = $req->all();
@@ -126,6 +132,7 @@ class EmpresaController extends Controller
         return redirect()->route('manager_empresa');
     }
 
+    // To Delete
     public function delete($id)
     {
         $delete = Empresa::find($id);

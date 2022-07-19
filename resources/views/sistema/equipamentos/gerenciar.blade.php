@@ -14,7 +14,7 @@
 
             {{-- TITULO E SUBTITULO --}}
             <div class="col-6">
-                <h1>@lang(' ')</h1><br>
+                <h1>@lang('comum.equipamentos')</h1><br>
                 <h4 style="margin-top: -20px">@lang('comum.gerenciar')</h4>
             </div>
 
@@ -48,12 +48,12 @@
             @csrf
             <thead class="headertable">
                 <tr class="text-center">
-                    <th style="width: 15%">ID Equipamento</th>
-                    <th style="width: 15%">Fazenda</th>
-                    <th style="width: 15%">Equipamento</th>
-                    <th style="width: 10%">Tipo</th>
-                    <th style="width: 10%">Modelo</th>
-                    <th style="width: 10%">Fabricante</th>
+                    <th style="width: 15%">ID</th>
+                    <th style="width: 15%">@lang('comum.equipamentos')</th>
+                    <th style="width: 15%">@lang('fazendas.fazendas')</th>
+                    <th style="width: 10%">@lang('comum.tipo')</th>
+                    <th style="width: 10%">@lang('entregaTecnica.modelo')</th>
+                    <th style="width: 10%">@lang('comum.fabricante')</th>
                     <th style="width: 10%">@lang('sidenav.acoes')</th>
                 </tr>
             </thead>
@@ -61,8 +61,8 @@
                 @foreach ($equipamentos as $equipamento)
                     <tr>
                         <td>{{ $equipamento->id }}</td>
-                        <td>{{ $equipamento->nome_fazenda }}</td>
                         <td>{{ $equipamento->nome }}</td>
+                        <td>{{ $equipamento->nome_fazenda }}</td>
                         <td>{{ $equipamento->tipo_equipamento }}</td>
                         <td>{{ $equipamento->modelo }}</td>
                         <td>{{ $equipamento->fabricante }}</td>

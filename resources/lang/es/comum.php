@@ -21,6 +21,7 @@ return [
     'erro_carregar_fazendas' => 'Se produjo un problema al cargar las granjas.',
     'selecionar_fazenda' => 'Seleccione Granja',
 
+    'equipamentos' =>'Equipo',
     'sim' => 'Sí',
     'nao' => 'No',
     'usuario' => 'Usuario: ',
@@ -41,6 +42,8 @@ return [
     'fullAccess' => 'Acceso Total',
     'noAccess' => 'No Hay Acceso',
     'readOnly' => 'Ver Sólo',
+    'fabricante' => 'Fabricante',
+    'tipo' => 'escribe',
 
     'cadastro_sucesso' => 'Registrado con éxito',
 

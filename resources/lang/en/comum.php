@@ -40,7 +40,10 @@ return [
    'fullAccess' => 'Full Access',
    'noAccess' => 'No Access',
    'readOnly' => 'Read Only',
-
+   'equipamentos' =>'Equipaments',
+   'fabricante' => 'Manufacturer',
+   'tipo' => 'Type',
+   
    'cadastro_sucesso' => 'Successfully registered',
 
    'cadastrar' => 'Create',
